@@ -100,7 +100,7 @@ a:hover {
 /* Hero — one of the finished maps sits dimmed behind the title */
 
 .hero {
-  background-image: linear-gradient(rgba(30,18,10,0.72), rgba(30,18,10,0.68)), url('../images/hero_bg.jpg');
+  background-image: linear-gradient(rgba(30,18,10,0.72), rgba(30,18,10,0.68)), url('../images/site/hero_bg.jpg');
   background-size: cover;
   background-position: center;
   padding: 4.5rem 1.25rem;
