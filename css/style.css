@@ -1033,11 +1033,12 @@ blockquote cite {
   border: 0;
 }
 
-/* Swipe-to-compare maps (pure CSS, no JavaScript): a horizontal scroll-snap
+/* Swipe-through track (pure CSS, no JavaScript): a horizontal scroll-snap
    track. The reader swipes (finger on touch, drag / trackpad / arrow keys on
    desktop) across the maps, which snap into the same position so successive
-   years can be compared directly. Used for the Climate Stress Grid (2018/2022),
-   Typology (2018/2022), and the ten-year Demographic Heartbeat sequence. */
+   years can be seen in place. Used for the ten-year Demographic Heartbeat
+   sequence. The two year-pair comparisons (Climate Stress Grid, Typology) use
+   the overlay comparison below instead. */
 
 .swipe-compare {
   max-width: 620px;
@@ -1095,6 +1096,85 @@ blockquote cite {
 .story-beat-centerpiece .swipe-hint {
   color: var(--gold);
 }
+
+/* Overlay swipe-to-compare (pure CSS, no JavaScript): two maps are stacked in
+   the same box. The top map sits in a resizable overlay; dragging the handle at
+   the divider slides the top map across, revealing the bottom map underneath,
+   so a reader can line up 2018 against 2022 directly. Used only for the two
+   year-pair comparisons (Climate Stress Grid, Typology); the ten-year
+   Demographic Heartbeat stays a swipe-through track above, since ten frames
+   cannot be overlaid in pairs. */
+
+.compare {
+  --cmp-w: min(620px, 92vw);
+  position: relative;
+  width: var(--cmp-w);
+  margin: 1.5rem auto 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  background-color: var(--white);
+}
+
+.compare > img {              /* bottom (revealed) map */
+  display: block;
+  width: var(--cmp-w);
+  height: auto;
+}
+
+.cmp-top {                    /* top (overlay) map, draggable width */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  min-width: 28px;
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+  resize: horizontal;
+  border-right: 3px solid var(--orange-accent);
+}
+
+.cmp-top img {
+  display: block;
+  width: var(--cmp-w);        /* full box width so both maps stay aligned */
+  height: auto;
+  max-width: none;
+}
+
+/* a visible grip over the native drag handle (bottom-right corner of the
+   overlay); pointer-events:none so the underlying resize handle still works */
+.cmp-top::after {
+  content: "\2194";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--white);
+  background-color: var(--orange-accent);
+  border-top-left-radius: 6px;
+  pointer-events: none;
+}
+
+.cmp-tag {                    /* year labels in the top corners */
+  position: absolute;
+  top: 8px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--white);
+  background-color: rgba(0, 0, 0, 0.55);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cmp-tag-l { left: 8px; }
+.cmp-tag-r { right: 8px; }
 
 /* Responsive */
 
